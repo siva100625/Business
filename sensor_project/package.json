@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "react-native-linear-gradient": "^2.8.3",
+    "react-native-reanimated": "^3.15.1",
+    "react-native-vector-icons": "^10.1.0",
+    "styled-components": "^6.1.13"
+  }
+}
