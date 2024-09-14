@@ -8,7 +8,7 @@ export default function LedControlScreen() {
 
   const handleBlinkLed = async () => {
     try {
-      const response = await axios.post('http://192.168.219.25/api/blink-led/');
+      const response = await axios.post('http://192.168.21.25/api/blink-led/');
       alert(response.data.message);
     } catch (error) {
       console.error('Error posting to Django:', error);

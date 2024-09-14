@@ -1,6 +1,6 @@
-// LoginScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ImageBackground, Dimensions } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
@@ -8,7 +8,7 @@ export default function LoginScreen({ navigation }) {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://192.168.219.25/api/auth/login/', {
+      const response = await fetch('http://192.168.147.95/api/auth/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,53 +27,113 @@ export default function LoginScreen({ navigation }) {
     }
   };
 
+  const { width } = Dimensions.get('window');
+
   return (
-    <View style={styles.container}>
-      <Text>Login Page</Text>
-      <TextInput
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        style={styles.input}
-        secureTextEntry
-      />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
-    </View>
+    <ImageBackground
+      source={{ uri: 'https://example.com/colorful-background.jpg' }} // Replace with a vibrant image or a local image
+      style={styles.background}
+    >
+      <LinearGradient
+        colors={['#FFF2D7', '#FFF2D7', '#FFF2D7']}
+        style={styles.gradient}
+      >
+        <View style={styles.container}>
+          <Text style={styles.title}>Welcome Back!</Text>
+          <Text style={styles.subtitle}>Login to continue</Text>
+
+          <TextInput
+            placeholder="Username"
+            value={username}
+            onChangeText={setUsername}
+            style={[styles.input, { width: width * 0.85 }]}
+            placeholderTextColor="black"
+          />
+          <TextInput
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            style={[styles.input, { width: width * 0.85 }]}
+            placeholderTextColor="black"
+            secureTextEntry
+          />
+
+          <TouchableOpacity style={[styles.button, { width: width * 0.85 }]} onPress={handleLogin}>
+            <LinearGradient
+              colors={['#763626', '#763626', '#763626']}
+              style={styles.buttonGradient}
+            >
+              <Text style={styles.buttonText}>Login</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+
+          
+        </View>
+      </LinearGradient>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
+    flex: 1,
+  },
+  gradient: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  title: {
+    fontSize: 32,
+    color: '#763626',
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 32,
+    color: '#763626',
+    marginBottom: 40,
+    fontWeight:'bold',
+  },
   input: {
-    width: 250,
-    padding: 10,
-    borderColor: '#ccc',
-    borderWidth: 1,
+    padding: 15,
+    borderColor:'#763626',
+    borderWidth: 3,
     marginVertical: 10,
-    borderRadius: 5,
+    borderRadius: 25,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    color: 'black',
+    fontSize: 16,
+   
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    //elevation: 20,
   },
   button: {
-    backgroundColor: 'blue',
+    borderRadius: 25,
+    marginTop: 20,
+  },
+  buttonGradient: {
     padding: 15,
-    margin: 10,
-    borderRadius: 5,
-    width: 200,
+    borderRadius: 25,
     alignItems: 'center',
   },
   buttonText: {
     color: 'white',
     fontSize: 18,
+    fontWeight: 'bold',
+  },
+  linkText: {
+    color: '#fff',
+    fontSize: 14,
+    marginTop: 150,
   },
 });
