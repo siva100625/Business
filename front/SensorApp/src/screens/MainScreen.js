@@ -15,7 +15,7 @@ const ListItem = React.memo(({ item }) => {
     <View style={[styles.dataItem, { backgroundColor }]}>
       <Text style={styles.itemText}>Value: {item.value}</Text>
       <Text style={styles.itemText}>
-        Status: {item.value > 3 ? 'Excessive' : 'Normal'}
+        Status: {item.value > 0.03 ? 'Excessive' : 'Normal'}
       </Text>
     </View>
   );
@@ -28,7 +28,7 @@ export default function MainScreen() {
 
   const fetchSensorData = useCallback(async () => {
     try {
-      const response = await axios.get('http://172.16.46.9/sensor-data/');
+      const response = await axios.get('http://192.168.138.25/sensor-data/');
       setSensorData(response.data);
     } catch (error) {
       console.error('Error fetching sensor data:', error);
