@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import Icon from 'react-native-vector-icons/FontAwesome'; // Importing icon library
 
 export default function SignupScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSignup = async () => {
     if (password !== confirmPassword) {
@@ -14,7 +17,7 @@ export default function SignupScreen({ navigation }) {
     }
 
     try {
-      const response = await fetch('http://192.168.21.25/api/auth/register/', {
+      const response = await fetch('http://192.168.138.25/api/auth/register/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,74 +37,111 @@ export default function SignupScreen({ navigation }) {
   };
 
   return (
-    <LinearGradient
-      colors={['#FFF2D7', '#FFF2D7', '#FFF2D7']}
-      style={styles.gradient}
-    >
-      <View style={styles.container}>
-        <Text style={styles.title}>Signup Page</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>SIGNUP</Text>
+
+      <View style={styles.inputContainer}>
+        <Icon name="user" size={20} color="#FFFFFF" style={styles.icon} />
         <TextInput
-          placeholder="Username"
+          placeholder="email"
           value={username}
           onChangeText={setUsername}
           style={styles.input}
+          placeholderTextColor="#FFFFFF"
         />
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Icon name="lock" size={20} color="#FFFFFF" style={styles.icon} />
         <TextInput
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
           style={styles.input}
-          secureTextEntry
+          placeholderTextColor="#FFFFFF"
+          secureTextEntry={!showPassword}
         />
+        <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+          <Icon
+            name={showPassword ? "eye-slash" : "eye"}
+            size={20}
+            color="#FFFFFF"
+            style={styles.iconRight}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Icon name="lock" size={20} color="#FFFFFF" style={styles.icon} />
         <TextInput
           placeholder="Confirm Password"
           value={confirmPassword}
           onChangeText={setConfirmPassword}
           style={styles.input}
-          secureTextEntry
+          placeholderTextColor="#FFFFFF"
+          secureTextEntry={!showConfirmPassword}
         />
-        <TouchableOpacity style={styles.button} onPress={handleSignup}>
-          <LinearGradient 
-            colors={['#763626', '#763626', '#763626']}
-            style={styles.buttonGradient}
-          >
-            <Text style={styles.buttonText}>Signup</Text>
-          </LinearGradient>
+        <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+          <Icon
+            name={showConfirmPassword ? "eye-slash" : "eye"}
+            size={20}
+            color="#FFFFFF"
+            style={styles.iconRight}
+          />
         </TouchableOpacity>
       </View>
-    </LinearGradient>
+
+      <TouchableOpacity style={styles.button} onPress={handleSignup}>
+        <LinearGradient 
+          colors={['#56CCF2', '#2F80ED']} // Gradient colors for the button
+          style={styles.buttonGradient}
+        >
+          <Text style={styles.buttonText}>SIGN UP</Text>
+        </LinearGradient>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  gradient: {
+  container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 10,
+    backgroundColor: '#0B0000', // Dark background
+    paddingHorizontal: 20,
   },
   title: {
     fontSize: 32,
-    color: '#763626',
     fontWeight: 'bold',
-    marginBottom: 20,
+    color: '#FFFFFF', // White text for title
+    marginBottom: 40,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: '#FFFFFF',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginVertical: 10,
+    width: Dimensions.get('window').width * 0.8,
+    paddingHorizontal: 10,
   },
   input: {
-    width: 250,
+    flex: 1,
+    color: '#FFFFFF', // White input text color
     padding: 10,
-    borderColor: '#763626',
-    borderWidth: 1,
-    marginVertical: 10,
-    borderRadius: 5,
-    color: '#763626',
+    fontSize: 16,
+  },
+  icon: {
+    marginRight: 10,
+  },
+  iconRight: {
+    marginLeft: 10,
   },
   button: {
-    width: Dimensions.get('window').width * 0.7,
-    marginVertical: 15,
+    marginTop: 30,
+    width: Dimensions.get('window').width * 0.8,
     borderRadius: 25,
   },
   buttonGradient: {
@@ -110,8 +150,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: 'white',
+    color: '#FFFFFF', // White text for the button
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  signInText: {
+    color: '#FFFFFF', // White color for sign in text
+    fontSize: 14,
+    marginTop: 20,
   },
 });

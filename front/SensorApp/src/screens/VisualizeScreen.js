@@ -8,7 +8,7 @@ export default function GraphScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Sensor Data Graph</Text>
       <Image
-        source={{ uri: 'http://192.168.147.95/api/auth/plot-graph/' }}
+        source={{ uri: 'http://192.168.138.25/api/auth/plot-graph/' }}
         style={[styles.graphImage, { width: screenWidth * 0.9, height: screenWidth * 0.9 }]} // Make image responsive
         resizeMode="contain" // Ensures the image scales properly within the container
       />
@@ -19,9 +19,9 @@ export default function GraphScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center', // Centers the content vertically
-    alignItems: 'center',     // Centers the content horizontally
-    backgroundColor: '#FFF2D7', // Light background color
+    justifyContent: 'center', 
+    alignItems: 'center',    
+    backgroundColor: '#FFF2D7', 
     padding: 20,
   },
   title: {

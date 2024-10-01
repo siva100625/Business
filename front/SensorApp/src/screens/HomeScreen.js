@@ -1,83 +1,31 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import * as Animatable from 'react-native-animatable';
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default function HomeScreen({ navigation }) {
+const HomeScreen = ({ navigation }) => {
   return (
-    <LinearGradient
-      colors={['#FFF2D7', '#FFF2D7', '#FFF2D7']}
-      style={styles.gradient}
-    >
-      <View style={styles.container}>
-        <Animatable.Text 
-          animation="fadeInDown" 
-          style={styles.title}>
-          Welcome To Safe Grip
-        </Animatable.Text>
-
-        <Animatable.View animation="bounceIn" delay={500}>
-          <TouchableOpacity 
-            style={styles.button}
-            onPress={() => navigation.navigate('Signup')}
-          >
-            <LinearGradient 
-              colors={['#763626', '#763626', '#763626']}
-              style={styles.buttonGradient}
-            >
-              <Text style={styles.buttonText}>Sign up</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        </Animatable.View>
-
-        <Animatable.View animation="bounceIn" delay={1000}>
-          <TouchableOpacity 
-            style={styles.button}
-            onPress={() => navigation.navigate('Login')}
-          >
-            <LinearGradient 
-              colors={['#763626', '#763626', '#763626']}
-              style={styles.buttonGradient}
-            >
-              <Text style={styles.buttonText}>Login</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        </Animatable.View>
-      </View>
-    </LinearGradient>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('Welcome')}>
+        <Image
+          source={require('../../assets/logo.jpg')} // Adjust the path as needed
+          style={styles.logo}
+          resizeMode="contain"
+        />
+      </TouchableOpacity>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  gradient: {
+  container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#FFFFFF', // White background
   },
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-  },
-  title: {
-    fontSize: 32,
-    color: '#763626',
-    fontWeight: 'bold',
-    marginBottom: 50,
-  },
-  button: {
-    width: Dimensions.get('window').width * 0.7,
-    marginVertical: 15,
-    borderRadius: 25,
-  },
-  buttonGradient: {
-    padding: 15,
-    borderRadius: 25,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
+  logo: {
+    width: 200,  // Adjust width based on how large you want the image
+    height: 200, // Adjust height based on how large you want the image
   },
 });
+
+export default HomeScreen;

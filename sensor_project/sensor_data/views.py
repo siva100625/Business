@@ -2,10 +2,14 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from .models import SensorData
 from .serializers import SensorDataSerializer
-from django.http import JsonResponse
-import requests
-from django.views.decorators.csrf import csrf_exempt
-THRESHOLD_VALUE = 1
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+from .serializers import RegisterSerializer
+
+THRESHOLD_VALUE = 0.03
 
 class SensorDataViewSet(viewsets.ModelViewSet):
     queryset = SensorData.objects.all().order_by('-timestamp')
@@ -20,27 +24,7 @@ class SensorDataViewSet(viewsets.ModelViewSet):
         
         return response
 
-@csrf_exempt
-def blink_led(request):
-    if request.method == 'POST':
-        # Send a request to the ESP8266 (Arduino)
-        url = 'http://192.168.219.113/blink-led'  # ESP8266 IP
-        try:
-            response = requests.post(url)  # Make sure this is a POST request
-            if response.status_code == 200:
-                return JsonResponse({'status': 'success', 'message': 'LED blinked'})
-            else:
-                return JsonResponse({'status': 'error', 'message': 'Failed to blink LED'}, status=500)
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
-    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
-# views.py
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
-from .serializers import RegisterSerializer
+# User registration and login views
 
 @api_view(['POST'])
 def register(request):
@@ -59,6 +43,7 @@ def login(request):
         return Response({'status': 'success'}, status=status.HTTP_200_OK)
     return Response({'status': 'error', 'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
+# Graph plotting view
 import matplotlib.pyplot as plt
 import io
 from django.http import HttpResponse

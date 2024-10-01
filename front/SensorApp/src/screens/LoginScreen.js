@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ImageBackground, Dimensions } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
@@ -8,7 +9,7 @@ export default function LoginScreen({ navigation }) {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://192.168.147.95/api/auth/login/', {
+      const response = await fetch('http://192.168.138.25/api/auth/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,99 +28,90 @@ export default function LoginScreen({ navigation }) {
     }
   };
 
-  const { width } = Dimensions.get('window');
-
   return (
-    <ImageBackground
-      source={{ uri: 'https://example.com/colorful-background.jpg' }} // Replace with a vibrant image or a local image
-      style={styles.background}
-    >
-      <LinearGradient
-        colors={['#FFF2D7', '#FFF2D7', '#FFF2D7']}
-        style={styles.gradient}
-      >
-        <View style={styles.container}>
-          <Text style={styles.title}>Welcome Back!</Text>
-          <Text style={styles.subtitle}>Login to continue</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>LOGIN</Text>
 
-          <TextInput
-            placeholder="Username"
-            value={username}
-            onChangeText={setUsername}
-            style={[styles.input, { width: width * 0.85 }]}
-            placeholderTextColor="black"
-          />
-          <TextInput
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-            style={[styles.input, { width: width * 0.85 }]}
-            placeholderTextColor="black"
-            secureTextEntry
-          />
+      <View style={styles.inputContainer}>
+        <Icon name="user" size={20} color="#FFFFFF" style={styles.icon} />
+        <TextInput
+          placeholder="EMAIL"
+          value={username}
+          onChangeText={setUsername}
+          style={styles.input}
+          placeholderTextColor="#FFFFFF"
+        />
+      </View>
 
-          <TouchableOpacity style={[styles.button, { width: width * 0.85 }]} onPress={handleLogin}>
-            <LinearGradient
-              colors={['#763626', '#763626', '#763626']}
-              style={styles.buttonGradient}
-            >
-              <Text style={styles.buttonText}>Login</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+      <View style={styles.inputContainer}>
+        <Icon name="lock" size={20} color="#FFFFFF" style={styles.icon} />
+        <TextInput
+          placeholder="PASSWORD"
+          value={password}
+          onChangeText={setPassword}
+          style={styles.input}
+          placeholderTextColor="#FFFFFF"
+          secureTextEntry
+        />
+        <Icon name="eye" size={20} color="#FFFFFF" style={styles.iconRight} />
+      </View>
 
-          
-        </View>
-      </LinearGradient>
-    </ImageBackground>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <LinearGradient 
+          colors={['#56CCF2', '#2F80ED']} // Gradient colors
+          style={styles.buttonGradient}
+        >
+          <Text style={styles.buttonText}>LOGIN</Text>
+        </LinearGradient>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Signup')} style={styles.signUpButton}>
+        <Text style={styles.signUpText}>Don’t have an account? Sign up</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-  },
-  gradient: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#0B0000', // Dark background
     paddingHorizontal: 20,
   },
   title: {
-    fontSize: 32,
-    color: '#763626',
+    fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 10,
+    color: '#FFFFFF',
+    marginBottom: 50,
   },
-  subtitle: {
-    fontSize: 32,
-    color: '#763626',
-    marginBottom: 40,
-    fontWeight:'bold',
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: '#FFFFFF',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginVertical: 10,
+    width: Dimensions.get('window').width * 0.8,
+    paddingHorizontal: 10,
   },
   input: {
-    padding: 15,
-    borderColor:'#763626',
-    borderWidth: 3,
-    marginVertical: 10,
-    borderRadius: 25,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    color: 'black',
+    flex: 1,
+    color: '#FFFFFF', // White input text color
+    padding: 10,
     fontSize: 16,
-   
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    //elevation: 20,
+  },
+  icon: {
+    marginRight: 10,
+  },
+  iconRight: {
+    marginLeft: 10,
   },
   button: {
+    marginTop: 30,
+    width: Dimensions.get('window').width * 0.8,
     borderRadius: 25,
-    marginTop: 20,
   },
   buttonGradient: {
     padding: 15,
@@ -127,13 +119,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: 'white',
+    color: '#FFFFFF',
     fontSize: 18,
     fontWeight: 'bold',
   },
-  linkText: {
-    color: '#fff',
+  signUpButton: {
+    marginTop: 20, // Add some space above the button
+    padding: 10,
+    backgroundColor: '#56CCF2', // Background color for the sign-up button
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  signUpText: {
+    color: '#FFFFFF', // Text color for the button
     fontSize: 14,
-    marginTop: 150,
+    fontWeight: 'bold',
   },
 });
