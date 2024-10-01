@@ -8,6 +8,12 @@ from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from .serializers import RegisterSerializer
+from rest_framework import viewsets, status
+from rest_framework.response import Response
+from .models import SensorData
+from .serializers import SensorDataSerializer
+from django.core.mail import send_mail
+from django.conf import settings
 
 THRESHOLD_VALUE = 0.03
 
@@ -19,12 +25,28 @@ class SensorDataViewSet(viewsets.ModelViewSet):
         response = super().create(request, *args, **kwargs)
         data = response.data
 
+        # Check if the sensor value exceeds the threshold
         if data['value'] > THRESHOLD_VALUE:
-            return Response({"message": "Alert! Value exceeds threshold", "blink": True}, status=status.HTTP_201_CREATED)
-        
+            # Send an email alert
+            self.send_threshold_exceed_email(data['value'])
+            
+            # Return response with an alert message
+            return Response({
+                "message": "Alert! Value exceeds threshold", 
+                "blink": True
+            }, status=status.HTTP_201_CREATED)
+
         return response
 
-# User registration and login views
+    def send_threshold_exceed_email(self, value):
+        subject = 'Threshold Alert: Sensor Value Exceeded'
+        message = f'The sensor value has exceeded the threshold. Current value: {value}.'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient_list = ['recipient@example.com']  # Replace with actual recipient email addresses
+
+        # Send the email
+        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+
 
 @api_view(['POST'])
 def register(request):
