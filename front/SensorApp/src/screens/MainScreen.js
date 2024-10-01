@@ -28,7 +28,7 @@ export default function MainScreen() {
 
   const fetchSensorData = useCallback(async () => {
     try {
-      const response = await axios.get('http://192.168.138.25/sensor-data/');
+      const response = await axios.get('http://172.16.46.9/sensor-data/');
       setSensorData(response.data);
     } catch (error) {
       console.error('Error fetching sensor data:', error);
