@@ -14,6 +14,10 @@ from .models import SensorData
 from .serializers import SensorDataSerializer
 from django.core.mail import send_mail
 from django.conf import settings
+import cv2
+import os
+from datetime import datetime
+from django.conf import settings
 
 THRESHOLD_VALUE = 0.03
 
@@ -27,8 +31,11 @@ class SensorDataViewSet(viewsets.ModelViewSet):
 
         # Check if the sensor value exceeds the threshold
         if data['value'] > THRESHOLD_VALUE:
+            # Capture the image and get the path
+            image_path = self.capture_image()  # Ensure you have this method defined
+            
             # Send an email alert
-            self.send_threshold_exceed_email(data['value'])
+            self.send_threshold_exceed_email(data['value'], image_path)
             
             # Return response with an alert message
             return Response({
@@ -38,14 +45,57 @@ class SensorDataViewSet(viewsets.ModelViewSet):
 
         return response
 
-    def send_threshold_exceed_email(self, value):
+    def send_threshold_exceed_email(self, value, image_path):
         subject = 'Threshold Alert: Sensor Value Exceeded'
         message = f'The sensor value has exceeded the threshold. Current value: {value}.'
         from_email = settings.DEFAULT_FROM_EMAIL
-        recipient_list = ['recipient@example.com']  # Replace with actual recipient email addresses
+        recipient_list = ['sivasubramanian.v2023ece@sece.ac.in']  # Replace with actual recipient email addresses
 
-        # Send the email
-        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+        # Create an EmailMessage object
+        email = EmailMessage(subject, message, from_email, recipient_list)
+
+        # Attach the image
+        try:
+            with open(image_path, 'rb') as image_file:
+                email.attach(image_path, image_file.read(), 'image/jpeg')
+            email.send(fail_silently=False)
+        except Exception as e:
+            print(f"Error sending email: {e}")
+
+    def capture_image(self):
+        # Capture the image from the camera
+        cap = cv2.VideoCapture(0)
+
+        if not cap.isOpened():
+            raise IOError("Cannot open webcam")
+
+        ret, frame = cap.read()
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        image_name = f"sensor_capture_{timestamp}.jpg"
+        image_path = os.path.join(settings.MEDIA_ROOT, image_name)
+
+        cv2.imwrite(image_path, frame)
+        cap.release()
+
+        print(f"Image saved at: {image_path}")
+
+        return image_path
+
+from django.core.mail import EmailMessage
+
+def send_threshold_exceed_email(self, value, image_path):
+    subject = 'Threshold Alert: Sensor Value Exceeded'
+    message = f'The sensor value has exceeded the threshold. Current value: {value}.'
+    from_email = settings.DEFAULT_FROM_EMAIL
+    recipient_list = ['sivasubramanian.v2023ece@sece.ac.in']
+    email = EmailMessage(subject, message, from_email, recipient_list)
+    try:
+        with open(image_path, 'rb') as image_file:
+            email.attach(image_path, image_file.read(), 'image/jpeg')
+        email.send(fail_silently=False)
+    except Exception as e:
+        print(f"Error sending email: {e}")
+
 
 
 @api_view(['POST'])
@@ -75,21 +125,13 @@ def plot_graph(request):
     data = SensorData.objects.all().order_by('-timestamp')[:10]
     values = [d.value for d in data]
     timestamps = [d.timestamp.strftime("%H:%M") for d in data]
-
-    # Create the figure and axis
     fig, ax = plt.subplots()
     ax.bar(timestamps, values)
-
-    # Format the graph
     ax.set_xlabel('Timestamp')
     ax.set_ylabel('Sensor Value')
     ax.set_title('Sensor Data over Time')
-
-    # Convert plot to PNG image
     buf = io.BytesIO()
     plt.savefig(buf, format='png')
     plt.close(fig)
     buf.seek(0)
-
-    # Serve the image as HTTP response
     return HttpResponse(buf, content_type='image/png')
