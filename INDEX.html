@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- --------- UNICONS ---------- -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <!-- --------- CSS ---------- -->
+    <link rel="stylesheet" href="style.css">
+    <!-- --------- FAVICON ---------- -->
+    <link rel="shortcut icon" href="logo.jpg" type="image/x-icon">
+    <title>Portfolio</title>
+</head>
+<body>
+   <div class="container">
+    <!-- --------------- HEADER --------------- -->
+      <nav id="header">
+        <div class="nav-logo">
+            <p class="nav-name">Safe Grip</p>
+        </div>
+        <div class="nav-menu" id="myNavMenu">
+            <ul class="nav_menu_list">
+                <li class="nav_list">
+                    <a href="#home" class="nav-link active-link">Home</a>
+                    <div class="circle"></div>
+                </li>
+                <li class="nav_list">
+                    <a href="#about" class="nav-link">About</a>
+                    <div class="circle"></div>
+                </li>
+                <li class="nav_list">
+                    <a href="#projects" class="nav-link">Project Description</a>
+                    <div class="circle"></div>
+                </li>
+                <li class="nav_list">
+                    <a href="#contact" class="nav-link">Contact</a>
+                    <div class="circle"></div>
+                </li>
+            </ul>
+        </div>
+    
+      </nav>
+    <!-- -------------- MAIN ---------------- -->
+    <main class="wrapper">
+       <!-- -------------- FEATURED BOX ---------------- -->
+       <section class="featured-box" id="home">
+          <div class="featured-text">
+            <div class="featured-text-card">
+
+            </div>
+            <div class="featured-name">
+                <p>SAFE GRIP</span></p>
+               
+            </div>
+            <div class="featured-text-info">
+                <p>Project Overview: Developing a system to detect alcohol levels from sweat and send email notifications to users, aiming to enhance road safety.
+                </p>
+               
+            </div>
+            <div class="social_icons">
+                <div class="icon"><i class="uil uil-instagram"></i></div>
+                <div class="icon"><i class="uil uil-linkedin-alt"></i></div>
+                <div class="icon"><i class="uil uil-dribbble"></i></div>
+                <div class="icon"><i class="uil uil-github-alt"></i></div>
+            </div>
+          </div>
+          <div class="scroll-icon-box">
+            <a href="#about" class="scroll-btn">
+                <i class="uil uil-mouse-alt"></i>
+                <p>Scroll Down</p>
+            </a>
+          </div>
+       </section>
+       <!-- -------------- ABOUT BOX ---------------- -->
+       <section class="section" id="about">
+          <div class="top-header">
+            <h1>About Us</h1>
+          </div>
+          <div class="row">
+            <div class="col">
+                <div class="about-info">
+                    <h3>Our introduction</h3>
+                    <p>Our team is a dynamic blend of skilled managers and dedicated team players who bring both technical expertise and collaborative spirit to every project. We operate like a family, with strong bonds and a shared commitment to excellence in app development. Our core competencies include React Native for building seamless mobile applications, Django for robust backend development, and embedded IoT systems using C, allowing us to deliver comprehensive, cutting-edge solutions across various domains. With a focus on innovation and teamwork, we are well-equipped to tackle complex challenges and drive successful outcomes
+                    </p>
+                    <div class="about-btn">
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="skills-box">
+                    <div class="skills-header">
+                        <h3>Frontend</h3>
+                    </div>
+                    <div class="skills-list">
+                        <span>React Native</span>
+                    </div>
+                </div>
+                <div class="skills-box">
+                    <div class="skills-header">
+                        <h3>Backend</h3>
+                    </div>
+                    <div class="skills-list">
+                        <span>Django rest Framework</span>
+                    </div>
+                </div>
+                <div class="skills-box">
+                    <div class="skills-header">
+                        <h3>Database</h3>
+                    </div>
+                    <div class="skills-list">
+                        <span>sqlite</span>
+                    </div>
+                </div>
+            </div>
+          </div>
+       </section>
+       <!-- -------------- PROJECT BOX ---------------- -->
+    <!-- -------------- PROJECT BOX ---------------- -->
+<section class="section" id="projects">
+    <div class="top-header">
+        <h1>Project Description</h1>
+    </div>
+    <div class="project-description-box">
+        <p>
+            The project aims to develop a system that detects alcohol levels in sweat using a transdermal alcohol sensor. This system employs an ESP8266 Wi-Fi module programmed in Embedded C to wirelessly transmit data to a Django backend server, which processes and stores the information. A React Native application retrieves this data and displays real-time alcohol readings. If the detected alcohol level exceeds a predefined threshold, an LED light blinks as a visual alert, and an email notification is sent to the owner, ensuring prompt awareness of any potential risks. This integrated solution promotes safety by providing immediate feedback on alcohol consumption levels.
+        </p>
+    </div>
+    <div class="project-container">
+        <div class="project-box">
+            <i class="uil uil-briefcase-alt"></i>
+            <h3>Hardware</h3>
+            <label>Embedded C</label>
+        </div>
+        <div class="project-box">
+            <i class="uil uil-users-alt"></i>
+            <h3>Software</h3>
+            <label>React Native and Djangorestframework</label>
+        </div>
+        <div class="project-box">
+            <i class="uil uil-award"></i>
+            <h3>Domain</h3>
+            <label>Embedded iot and App development</label>
+        </div>
+    </div>
+</section>
+<!-- -------------- PRODUCT FEATURES BOX ---------------- -->
+<section class="section" id="product-features">
+    <div class="top-header">
+        <h1>Product Features</h1>
+    </div>
+    <div class="product-features-container">
+        <div class="bordered-box"> <!-- Added bordered-box class only for text -->
+            <div class="product-features-text">
+                <h3>Innovative Design</h3>
+                <p>
+                    Our product features an innovative design that is both user-friendly and efficient. With state-of-the-art technology, it ensures accurate readings and reliable performance in real-time monitoring of alcohol levels.
+                </p>
+                <h3>Real-Time Monitoring</h3>
+                <p>
+                    Get instant notifications and alerts to stay informed. The system offers real-time monitoring of alcohol levels, enhancing safety and awareness for users.
+                </p>
+                <h3>Mobile App Integration</h3>
+                <p>
+                    The product seamlessly integrates with our mobile app, allowing users to track their alcohol consumption conveniently and securely from their smartphones.
+                </p>
+            </div>
+        </div>
+        <div class="product-features-image">
+            <img src="logo.jpg" alt="Product Features" class="oval-image">
+        </div>
+    </div>
+</section>
+
+
+
+       <!-- -------------- CONTACT BOX ---------------- -->
+       <section class="section" id="contact">
+          <div class="top-header">
+            <h1>Safe Grip</h1>
+            <span>If you drink you can't drive</span>
+          </div>
+          <div class="row">
+             <div class="col">
+                <div class="contact-info">
+                    <h2>Find Us <i class="uil uil-corner-right-down"></i></h2>
+                    <p><i class="uil uil-envelope"></i> Email: sivasubramanian.v2023ece@sece.ac.in</p>
+                    <p><i class="uil uil-phone"></i> Tel: +91 7824960578</p>
+                </div>
+             </div>
+             <div class="col">
+                <div class="form-control">
+                    <div class="form-inputs">
+                        <input type="text" class="input-field" placeholder="Name">
+                        <input type="text" class="input-field" placeholder="Email">
+                    </div>
+                    <div class="text-area">
+                        <textarea placeholder="Message"></textarea>
+                    </div>
+                    <div class="form-button">
+                        <button class="btn">Send <i class="uil uil-message"></i></button>
+                    </div>
+                </div>
+             </div>
+          </div>
+       </section>
+    </main>
+    <!-- --------------- FOOTER --------------- -->
+    <footer>
+        <div class="top-footer">
+            <p>Pocket Dynamites</p>
+        </div>
+        <div class="middle-footer">
+            <ul class="footer-menu">
+                <li class="footer_menu_list">
+                    <a href="#home">Home</a>
+                </li>
+                <li class="footer_menu_list">
+                    <a href="#about">About</a>
+                </li>
+                <li class="footer_menu_list">
+                    <a href="#projects">Project Description</a>
+                </li>
+                <li class="footer_menu_list">
+                    <a href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-social-icons">
+            <div class="icon"><i class="uil uil-instagram"></i></div>
+            <div class="icon"><i class="uil uil-linkedin-alt"></i></div>
+            <div class="icon"><i class="uil uil-dribbble"></i></div>
+            <div class="icon"><i class="uil uil-github-alt"></i></div>
+        </div>
+        <div class="bottom-footer">
+            <p>Copyright &copy; <a href="#home" style="text-decoration: none;">Pocket Dynamites</a> - All rights reserved</p>
+        </div>
+    </footer>
+    </div>
+    <!-- ----- TYPING JS Link ----- -->
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+       <!-- ----- SCROLL REVEAL JS Link----- -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <!-- ----- MAIN JS ----- -->
+    <script src="main.js"></script>
+</body>
+</html>
